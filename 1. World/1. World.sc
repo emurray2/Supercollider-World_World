@@ -19,8 +19,8 @@ World_World {
 
 	// Start up flags (all these are overridden if releaseMode is true)
 
-	classvar <>verbose    = true;  // post dev & debug info
-	classvar <startEngine = false;  // start the game engine on launch
+	classvar <>verbose    = false;  // post dev & debug info
+	classvar <startEngine = false;   // start the game engine on launch
 	classvar <fullScreen  = false;  // open in fullscreen mode
 	classvar <titleScreen = true;   // open the title screen on launch
 	classvar <skipIntro   = false;  // use to skip intro during dev
@@ -189,14 +189,14 @@ World_World {
 				if ((screenWidth / defaultWidth) > (screenHeight / defaultHeight)) {
 					globalZoom = screenWidth / defaultWidth }{ globalZoom = screenHeight / defaultHeight } }
 		);
-		aspectRatio           = screenWidth / screenHeight;                // aspect ratio
-		screenRect            = Rect(0,0,screenWidth,screenHeight);        // used to create gui & draw func to clear background
-		scaledScreenRect      = Rect(0,0,screenWidth / globalZoom, screenHeight / globalZoom); // scaled by global zoom
-		halfScreenWidth       = screenWidth    * 0.5;                      // used by camera
-		halfScreenHeight      = screenHeight   * 0.5;                      // used by camera
-		screenCentre          = halfScreenWidth @ halfScreenHeight;        // used by messages
-		offScreenDistance     = screenDiagonal * 0.5;                      // distance to a corner from the centre of the screen
-		World_Camera.zoom_(1);
+		aspectRatio       = screenWidth / screenHeight;                // aspect ratio
+		screenRect        = Rect(0,0,screenWidth,screenHeight);        // used to create gui & draw func to clear background
+		scaledScreenRect  = Rect(0,0,screenWidth / globalZoom, screenHeight / globalZoom); // scaled by global zoom
+		halfScreenWidth   = screenWidth    * 0.5;                      // used by camera
+		halfScreenHeight  = screenHeight   * 0.5;                      // used by camera
+		offScreenDistance = screenDiagonal * 0.5;                      // distance to a corner from the centre of the screen
+		screenCentre      = halfScreenWidth @ halfScreenHeight;        // used by messages
+		World_Camera.zoom = 1;
 		if (verbose) {
 			"=================================".postln;˚
 " screenWidth    : %\n screenHeight   : %\n screenDiagonal : %\n aspectRatio    : %\n scaleMode      : %\n globalZoom     : %"
@@ -239,7 +239,6 @@ World_World {
 
 	// init world state
 	*initWorld{
-		var highScore;
 		if (verbose) { "World_World:initWorld".postln };
 		isGameOver             = false;
 		triggerGameOver        = false;
@@ -368,7 +367,7 @@ World_World {
 							staticFrameLength = 1 / frameRate ;                   // length of a single frame in seconds no tD
 							frameLength       = staticFrameLength * timeDilation; // length with timeDilation
 							worldTime         = worldTime + frameLength;          // time in seconds since world creation
-							this.perform(game_Loop)
+							this.performGameLoop;
 						}; // do game loop
 					};
 					// i dont know if changing these values will alter your performance, these seem to help on a 2012 Macbook pro

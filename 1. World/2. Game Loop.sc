@@ -12,19 +12,9 @@
 
 + World_World {
 
-	// the games mechanics loop called every frame on the System clock
-	*gameLoop{
-		// core mechanics
+	*performGameLoop{
 		if (lightMap.isOn) {lightMap.clearDynamicLightMap}; // clear lightmap for new frame
-		World_World.tick;                       // global world tick
-		World_Scene.tick;                       // current scene tick
-		World_Foreground_Particle.tick;         // global tick for World_Foreground_Particle
-		worldTimers.do(_.tick);                 // timers that run outside of all scenes
-		sceneTimers.do(_.tick);                 // timers that run inside a scene
-		dynamics.do(_.tick);                    // core movement mechanics
-		ugp.doCollisions;                       // test and run all collisions
-		World_Camera.tick;                      // move camera
-		World_World.collectGarbage;             // free any garbage (could be entities, timers or clocks)
+		this.perform(game_Loop);                            // core mechanics
 		if (triggerGameOver) {
 			triggerGameOver = false;
 			isGameOver      = true;
@@ -35,6 +25,19 @@
 				worldEdgeResponses = nil;
 			};
 		};
+	}
+
+	// the games mechanics loop called every frame on the System clock
+	*gameLoop{
+		World_World.tick;                       // global world tick
+		World_Scene.tick;                       // current scene tick
+		World_Foreground_Particle.tick;         // global tick for World_Foreground_Particle
+		worldTimers.do(_.tick);                 // timers that run outside of all scenes
+		sceneTimers.do(_.tick);                 // timers that run inside a scene
+		dynamics.do(_.tick);                    // core movement mechanics
+		ugp.doCollisions;                       // test and run all collisions
+		World_Camera.tick;                      // move camera
+		World_World.collectGarbage;             // free any garbage (could be entities, timers or clocks)
 	}
 
 	// the render func used to draw the world, deferred every frame from the System Clock
