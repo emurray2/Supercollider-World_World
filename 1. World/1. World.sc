@@ -19,8 +19,8 @@ World_World {
 
 	// Start up flags (all these are overridden if releaseMode is true)
 
-	classvar <>verbose    = false;  // post dev & debug info
-	classvar <startEngine = false;   // start the game engine on launch
+	classvar <>verbose    = true;  // post dev & debug info
+	classvar <startEngine = true;   // start the game engine on launch
 	classvar <fullScreen  = false;  // open in fullscreen mode
 	classvar <titleScreen = true;   // open the title screen on launch
 	classvar <skipIntro   = false;  // use to skip intro during dev
