@@ -1,4 +1,4 @@
-# Supercollider-World_World
+# Supercollider-World_World (audio only branch--no GUI)
 
 World_World is a 2D game engine made in Supercollider. I've made it because I love messing around
 with both audio and games. Most game engines have a basic audio capability but what if it
